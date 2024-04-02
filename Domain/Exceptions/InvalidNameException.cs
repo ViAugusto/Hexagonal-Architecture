@@ -1,6 +1,6 @@
 ﻿namespace Domain.Exceptions
 {
-    internal class InvalidNameException : Exception
+    public class InvalidNameException : Exception
     {
         public InvalidNameException(string message) : base(message) { }
     }
