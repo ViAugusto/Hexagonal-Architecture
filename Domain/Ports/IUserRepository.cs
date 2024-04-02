@@ -1,6 +1,7 @@
 ﻿
 
 using Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Domain.Ports
 {
@@ -9,7 +10,7 @@ namespace Domain.Ports
         Task<IEnumerable<User>> GetUsers();
         Task<User> GetUser(Guid id);
         Task<User> CreateUser(User user);
-        Task<User> UpdateUser(User user);
-        Task<User> DeleteUser(Guid id);
+        Task<IActionResult> UpdateUser(User user);
+        Task<IActionResult> DeleteUser(Guid id);
     }
 }
