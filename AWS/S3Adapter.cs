@@ -1,10 +1,8 @@
 ﻿using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
-using Amazon.SQS;
 using Domain.Ports;
 using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
 
 namespace AWS
 {
