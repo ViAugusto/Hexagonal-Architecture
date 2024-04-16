@@ -1,46 +1,25 @@
-using Application.Services;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+var builder = WebApplication.CreateBuilder(args);
 
-internal class Program
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
 {
-    private static async Task Main(string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
-        var app = builder.Build();
-        Configure(app);
-
-
-        var serviceProvider = ConfigureServices();
-
-        var s3Service = serviceProvider.GetRequiredService<S3ApplicationService>();
-
-        string queueUrl = "url_da_fila_sqs";
-        await s3Service.ProcessarMensagemSqsAsync(queueUrl);
-
-        app.Run();
-    }
-
-    private static IServiceProvider ConfigureServices()
-    {
-        var services = new ServiceCollection();
-
-        services.AddScoped<S3ApplicationService>();
-
-        return services.BuildServiceProvider();
-    }
-
-    private static void Configure(WebApplication app)
-    {
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
-
-        app.UseHttpsRedirection();
-        app.UseAuthorization();
-        app.MapControllers();
-    }
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
